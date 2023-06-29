@@ -17,10 +17,6 @@ def make_prediction(model_path, new_data):
         probability = predicted_probabilities[0][index]
         print(f'Predicted Disease {i+1}: {disease}, Estimated Confidence: {probability * 100}%')
 
-# Example usage:
-# model_path = 'path_to_your_model.pkl'
-# new_data = [...]  # Replace with your input data
-# make_prediction(model_path, new_data)
 
 
 # This is for printing the disease with highest probability compared to the top function that prints top 3
