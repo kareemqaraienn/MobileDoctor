@@ -35,7 +35,8 @@ def encode(symptoms):
 
 
 # new_symptoms =  [ 'chills', 'fatigue', 'cough', 'high_fever' ,'breathlessness' ,'malaise' , 'phlegm','chest_pain', 'fast_heart_rate' ,'rusty_sputum']
-new_symptoms = ['skin_rash', 'stomach_pain' ,'spotting_urination']
+new_symptoms = [ 'fatigue'	, 'weight_gain',	 'cold_hands_and_feets'	, 'mood_swings'	, 'lethargy'	, 'dizziness'	, 'puffy_face_and_eyes'	, 'enlarged_thyroid'	, 'brittle_nails'	, 'swollen_extremeties',	 'depression'	, 'irritability'	, 'abnormal_menstruation']			
+
 
 
 def predict_input(symptoms):
