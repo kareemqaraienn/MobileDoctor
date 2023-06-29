@@ -1,8 +1,14 @@
 import os
+import json
 import pandas as pd
 from data_cleaning import clean_data
 from train_and_test import train_and_test
 from predict import make_prediction
+
+
+disease_description = pd.read_csv('Datasets/disease_description.csv')
+disease_precaution = pd.read_csv('Datasets/disease_precaution.csv')
+symptom_severity = pd.read_csv('Datasets/symptom_severity.csv')
 
 raw_data_path = '../Datasets/dataset.csv'
 cleaned_data_path = '../Datasets/cleaned_dataset.csv'
@@ -37,9 +43,24 @@ def encode(symptoms):
 # new_symptoms =  [ 'chills', 'fatigue', 'cough', 'high_fever' ,'breathlessness' ,'malaise' , 'phlegm','chest_pain', 'fast_heart_rate' ,'rusty_sputum']
 new_symptoms = [ 'fatigue'	, 'weight_gain',	 'cold_hands_and_feets'	, 'mood_swings'	, 'lethargy'	, 'dizziness'	, 'puffy_face_and_eyes'	, 'enlarged_thyroid'	, 'brittle_nails'	, 'swollen_extremeties',	 'depression'	, 'irritability'	, 'abnormal_menstruation']			
 
-
+def get_disease_info(predicted_disease, symptoms):
+    # Gather information
+    description = disease_description.loc[disease_description['Disease'] == predicted_disease, 'Description'].values[0]
+    precautions_row = disease_precaution.loc[disease_precaution['Disease'] == predicted_disease, ['Precaution_1', 'Precaution_2', 'Precaution_3', 'Precaution_4']]
+    precautions = ', '.join(precautions_row.values[0])
+    severity = {symptom: int(symptom_severity.loc[symptom_severity['Symptom'] == symptom, 'weight'].values[0]) for symptom in symptoms}
+    response = {
+        'disease': predicted_disease,
+        'description': description,
+        'precautions': precautions,
+        'symptom_severity': severity
+    }
+    
+    return json.dumps(response)
+    return description, precautions, severity
 
 def predict_input(symptoms):
-    make_prediction(model_path, encode(symptoms))
+    return make_prediction(model_path, encode(symptoms))
 
-predict_input(new_symptoms)
+disease, probability = predict_input(new_symptoms)
+print(get_disease_info(disease, new_symptoms))
