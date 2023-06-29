@@ -1,7 +1,7 @@
 import os
 
 # Change the current directory to 'src'
-# os.chdir('src')
+os.chdir('backend')
 
 # Get the current working directory
 current_directory = os.getcwd()
@@ -23,7 +23,7 @@ from predict import make_prediction
 # Define paths
 raw_data_path = '../Datasets/dataset.csv'
 cleaned_data_path = '../Datasets/cleaned_dataset.csv'
-model_path = '/final_model.joblib'
+model_path = 'final_model.joblib'
 
 # # Clean the data
 # clean_data(raw_data_path, cleaned_data_path)
