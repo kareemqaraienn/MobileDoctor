@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mobile Doctor - Login (CSI3140 Term Project)</title>
+	<link href="style.css" rel="stylesheet"/>
+    <style>
+	  p a { color: blue; }
+	  .nav { margin-bottom: 25px; }
+	</style>
+    <script src="md.js"></script>
+  </head>
+  <body>
+    <div class="nav flex-container"> <!--(Nav Bar) -->
+	  <div><img src="navicon.png" alt="MD Logo" width="50px" height="50px"/></div>
+      <ul>
+        <li><a href="#">Find a Clinic</a></li>
+        <li><a href="#">Healthy Living</a></li>
+        <li><a href="#">Conditions</a></li>
+	    <li><a href="#">Mobile Doctor</a></li> <!--(Link to Homepage) -->
+	  </ul>
+    </div>
+    <div class="login">
+      <h2 style="font-size: 3vw">Log in</h2>
+      <form action="">
+        <p><input id="username" type="text" placeholder="Username" required></p>
+        <p><input id="password" type="text" placeholder="Enter Your Password" required></p>
+        <input type="button" onclick="alert('login()')" value="Log In"/>
+      </form>
+	  <p style="font-size: 18px;"><a href="mdregister.html">Don't have an account yet? Click on this link to register now.</a></p>
+    </div>
+  </body>
+</html>

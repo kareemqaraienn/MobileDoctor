@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mobile Doctor - Register (CSI3140 Term Project)</title>
+	<link href="style.css" rel="stylesheet"/>
+    <style> p a { color: blue; }
+	.nav { margin-bottom: 25px; } </style>
+    <script src="md.js"></script>
+  </head>
+  <body>
+    <div class="nav flex-container"> <!--(Nav Bar) -->
+	  <div><img src="navicon.png" alt="MD Logo" width="50px" height="50px"/></div>
+      <ul>
+        <li><a href="#">Find a Clinic</a></li>
+        <li><a href="#">Healthy Living</a></li>
+        <li><a href="#">Conditions</a></li>
+	    <li><a href="#">Mobile Doctor</a></li> <!--(Link to Homepage) -->
+	  </ul>
+    </div>
+    <div class="login">
+      <h2 style="font-size: 3vw">Register</h2>
+	  <div style="font-size: 18px;">
+		<form action="">
+		  <p><label for="username">Username:</label>
+		  <input id="username" type="text" placeholder="Username" required></p>
+		  <p><label for="email">Email:</label>
+		  <input id="email" type="text" placeholder="example@email.com" required></p>
+		  <p><label for="password">Password:</label>
+		  <input id="password" type="text" placeholder="Enter Your Password" required></p>
+		  <p><label for="confirmpass">Confirm Password:</label>
+		  <input id="confirmpass" type="text" placeholder="ReEnter Your Password" required onkeyup="validatepassword()"/>
+		  <span id="wrongpassalert"></span></p>
+		  <p><input id="recievenews" type="checkbox"/>Recieve newsletters and updates</p>
+		  <input id="register" type="button" onclick="register()" value="Sign Up"/>
+        </form>
+	  </div>
+	  <p><a href="#">Already have an account? Click on this link to log in!</a></p>
+    </div>
+  </body>
+</html>
