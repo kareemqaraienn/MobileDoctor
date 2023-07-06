@@ -4,15 +4,15 @@
     <meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mobile Doctor - Register (CSI3140 Term Project)</title>
-	<link href="style.css" rel="stylesheet"/>
+	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
     <style> p a { color: blue; }
 	.nav { margin-bottom: 25px; } </style>
-    <script src="md.js"></script>
-  </head>
+    <script src="{{ url_for('static', filename='md.js') }}"></script>
+</head>
   <body>
     <div class="nav flex-container"> <!--(Nav Bar) -->
-	  <div><img src="navicon.png" alt="MD Logo" width="50px" height="50px"/></div>
-      <ul>
+		<div><img src="{{ url_for('static', filename='navicon.png') }}" alt="MD Logo" width="50px" height="50px"/></div>
+		<ul>
         <li><a href="#">Find a Clinic</a></li>
         <li><a href="#">Healthy Living</a></li>
         <li><a href="#">Conditions</a></li>
@@ -22,9 +22,11 @@
     <div class="login">
       <h2 style="font-size: 3vw">Register</h2>
 	  <div style="font-size: 18px;">
-		<form action="">
-		  <p><label for="username">Username:</label>
-		  <input id="username" type="text" placeholder="Username" required></p>
+		<form id = "registration-form">
+		  <p><label for="firstname">First Name:</label>
+		  <input id="firstname" type="text" placeholder="First Name" required></p>
+		  <p><label for="lastname">Last Name:</label>
+		  <input id="lastname" type="text" placeholder="Last Name" required></p>
 		  <p><label for="email">Email:</label>
 		  <input id="email" type="text" placeholder="example@email.com" required></p>
 		  <p><label for="password">Password:</label>
@@ -32,11 +34,38 @@
 		  <p><label for="confirmpass">Confirm Password:</label>
 		  <input id="confirmpass" type="text" placeholder="ReEnter Your Password" required onkeyup="validatepassword()"/>
 		  <span id="wrongpassalert"></span></p>
+		  <p><label for ="age">Age:</label> 
+		  <input id="age" type="text" placeholder="Enter your age" required/></p>
 		  <p><input id="recievenews" type="checkbox"/>Recieve newsletters and updates</p>
-		  <input id="register" type="button" onclick="register()" value="Sign Up"/>
+		  <button id="register" type="submit"> Register </button>
         </form>
 	  </div>
 	  <p><a href="#">Already have an account? Click on this link to log in!</a></p>
     </div>
+    <script>
+        document.getElementById("registration-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const data = {
+                first_name: document.getElementById("firstname").value,
+                last_name: document.getElementById("lastname").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                password_confirmation: document.getElementById("confirmpass").value,
+                age: document.getElementById("age").value,
+            };
+
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
   </body>
 </html>
