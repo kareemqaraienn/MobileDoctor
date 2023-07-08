@@ -1,7 +1,13 @@
 * { box-sizing: border-box; }
 a { color: white; text-align: center; text-decoration: none; }
 a:hover { text-decoration: underline; }
-body { background-color: DodgerBlue; }
+body {         background-color: lightblue;
+	font-family: Arial, sans-serif;
+	background-image: url("ambulance-background.png");
+	background-repeat: repeat;
+	background-size: 70px 70px;
+	background-position: center center;
+	background-attachment: fixed;}
 button { background-color: #008CBA;
          border: none;
 		 border-radius: 12px;
