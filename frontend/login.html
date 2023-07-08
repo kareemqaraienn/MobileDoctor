@@ -126,8 +126,12 @@
             displayErrorMessage("An error occurred. Please try again.");
           });
       } else {
-        emailInput.reportValidity();
-        passwordInput.reportValidity();
+        if (emailInput.checkValidity()){
+          passwordInput.reportValidity();
+        } else {
+          emailInput.reportValidity();
+        }
+        // passwordInput.reportValidity();
       }
     });
 
