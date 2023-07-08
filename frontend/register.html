@@ -1,71 +1,237 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mobile Doctor - Register (CSI3140 Term Project)</title>
-	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
-    <style> p a { color: blue; }
-	.nav { margin-bottom: 25px; } </style>
-    <script src="{{ url_for('static', filename='md.js') }}"></script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Doctor - Register (CSI3140 Term Project)</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+  <style>
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #f2f2f2; /* Slightly darker color for inputs */
+      border: none;
+      box-shadow: none;
+      color: #333333; /* Darker text color for inputs */
+    }
+	    .card {
+      border-radius: 20px !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      border-radius: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+    }
+
+    .btn-primary:hover {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+	.gender-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .gender-container label {
+      margin-right: 10px;
+    }
+    
+    .gender-container input[type="radio"] {
+      margin-right: 5px;
+    }
+  </style>
+  <script src="{{ url_for('static', filename='md.js') }}"></script>
 </head>
-  <body>
-    <div class="nav flex-container"> <!--(Nav Bar) -->
-		<div><img src="{{ url_for('static', filename='navicon.png') }}" alt="MD Logo" width="50px" height="50px"/></div>
-		<ul>
-        <li><a href="#">Find a Clinic</a></li>
-        <li><a href="#">Healthy Living</a></li>
-        <li><a href="#">Conditions</a></li>
-	    <li><a href="#">Mobile Doctor</a></li> <!--(Link to Homepage) -->
-	  </ul>
-    </div>
-    <div class="login">
-      <h2 style="font-size: 3vw">Register</h2>
-	  <div style="font-size: 18px;">
-		<form id = "registration-form">
-		  <p><label for="firstname">First Name:</label>
-		  <input id="firstname" type="text" placeholder="First Name" required></p>
-		  <p><label for="lastname">Last Name:</label>
-		  <input id="lastname" type="text" placeholder="Last Name" required></p>
-		  <p><label for="email">Email:</label>
-		  <input id="email" type="text" placeholder="example@email.com" required></p>
-		  <p><label for="password">Password:</label>
-		  <input id="password" type="text" placeholder="Enter Your Password" required></p>
-		  <p><label for="confirmpass">Confirm Password:</label>
-		  <input id="confirmpass" type="text" placeholder="ReEnter Your Password" required onkeyup="validatepassword()"/>
-		  <span id="wrongpassalert"></span></p>
-		  <p><label for ="age">Age:</label> 
-		  <input id="age" type="text" placeholder="Enter your age" required/></p>
-		  <p><input id="recievenews" type="checkbox"/>Recieve newsletters and updates</p>
-		  <button id="register" type="submit"> Register </button>
-        </form>
-	  </div>
-	  <p><a href="#">Already have an account? Click on this link to log in!</a></p>
-    </div>
-    <script>
-        document.getElementById("registration-form").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent default form submission
 
-            const data = {
-                first_name: document.getElementById("firstname").value,
-                last_name: document.getElementById("lastname").value,
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value,
-                password_confirmation: document.getElementById("confirmpass").value,
-                age: document.getElementById("age").value,
-            };
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+            <h2 class="text-center">Register</h2>
+            <form id="registration-form" class="needs-validation" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="firstname">First Name</label>
+                <input type="text" class="form-control" id="firstname" placeholder="First Name" required>
+                <div class="invalid-feedback">Valid first name is required.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Last Name" required>
+                <div class="invalid-feedback">Valid last name is required.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" class="form-control" id="password" required>
+                <div class="invalid-feedback">Please enter a password (5 characters minimum).</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="confirmpass">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmpass" required onkeyup="validatepassword()">
+                <div class="invalid-feedback">Passwords don't match.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="age">Age</label>
+                <input type="text" class="form-control" id="age" placeholder="Enter your age" required>
+                <div class="invalid-feedback">Please enter your age.</div>
+              </div>
+              <div class="form-group form-check">
+                <div class="gender-container">
+                  <label class="form-label">Gender:</label>
+                  <div>
+                    <input type="radio" name="gender" id="gender-male" value="male" required>
+                    <label for="gender-male">Male</label>
+                    <input type="radio" name="gender" id="gender-female" value="female">
+                    <label for="gender-female">Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="recievenews">
+                <label class="form-check-label" for="recievenews">Receive newsletters and updates</label>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Register</button>
+            </form>
+			<div id="error-message-container" class="mt-3"></div>
+			<div class="text-center mt-3">
+				<button class="btn btn-link" onclick="redirectToLogin('login')">Already have an account? Click here to log in!</button>
+			  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
-  </body>
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+	function validateEmail(email) {
+	  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	  return re.test(String(email).toLowerCase());
+	}
+  
+	function validateInput(inputElement, validator) {
+	  function validate() {
+		var value = inputElement.value;
+		var valid = validator(value);
+		var errorMessageElement = inputElement.parentNode.querySelector(".invalid-feedback");
+		
+		if (!valid) {
+		  errorMessageElement.style.display = 'block';
+		} else {
+		  errorMessageElement.style.display = 'none';
+		}
+		
+		return valid;
+	  }
+	  
+	  inputElement.addEventListener("input", validate);
+	  return validate;
+	}
+  
+	var validations = [];
+  
+	document.addEventListener("DOMContentLoaded", function() {
+	  validations.push(validateInput(document.getElementById("firstname"), value => value !== ""));
+	  validations.push(validateInput(document.getElementById("lastname"), value => value !== ""));
+	  validations.push(validateInput(document.getElementById("email"), validateEmail));
+	  validations.push(validateInput(document.getElementById("password"), value => value.length >= 5));
+	  validations.push(validateInput(document.getElementById("confirmpass"), value => value === document.getElementById("password").value));
+	  validations.push(validateInput(document.getElementById("age"), value => !isNaN(value) && value >= 1 && value <= 130));
+	});
+  
+	document.getElementById("registration-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var allValid = validations.reduce((isValid, validate) => isValid && validate(), true);
+
+    if (!allValid) {
+      return;
+    }
+
+    const data = {
+      first_name: document.getElementById("firstname").value,
+      last_name: document.getElementById("lastname").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+      password_confirmation: document.getElementById("confirmpass").value,
+      age: document.getElementById("age").value,
+    };
+
+    fetch('/register', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+.then(response => {
+  if (!response.ok) {
+    // In case of an error response, try to parse the body and then reject the Promise with the parsed object
+    return response.json().then(err => Promise.reject(err));
+  }
+  // If response was okay, parse the body as usual
+  return response.json();
+})
+.then(data => {
+  console.log("enkl")
+  if (data.message === "Registration successful") {
+    window.location.href = "/predict";
+  } else {
+    displayErrorMessage(data.message);
+  }
+})
+.catch(error => {
+  // Handle network errors or other errors that prevented the request from completing
+  console.error('Error:', error);
+  displayErrorMessage("An error occurred. Please try again.");
+});
+
+  });
+
+  function redirectToLogin(url) {
+    window.location.href = url;
+  }
+
+  function displayErrorMessage(message) {
+      const errorMessageContainer = document.getElementById("error-message-container");
+
+      // Remove any existing error message
+      while (errorMessageContainer.firstChild) {
+        errorMessageContainer.removeChild(errorMessageContainer.firstChild);
+      }
+
+      const errorMessage = document.createElement("div");
+      errorMessage.className = "alert alert-danger";
+      errorMessage.textContent = message;
+
+      errorMessageContainer.appendChild(errorMessage);
+  }
+</script>
+</body>
+
 </html>
