@@ -1,14 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="styles1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='resultsStyles.css') }}">
 </head>
 <body>
-    <button class="Redo" id="redo">Redo Test</button>
-    <div class="center-form">
-        <h2>Result shows you potentially have</h2>
-        <button class="info-button" id="info">Check Info</button>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <h2 class="card-title text-center mb-3"><i class="fas fa-stethoscope"></i> Potential Disease: <span class="text-primary">{{ disease|title }}</span></h2>
+                    <h4 class="card-subtitle mb-2 text-muted text-center">Probability of Disease: {{ (probability * 100)|round(2) }}%</h4>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ (probability * 100)|round }}%;" aria-valuenow="{{ (probability * 100)|round }}" aria-valuemin="0" aria-valuemax="100">{{ (probability * 100)|round(2) }}%</div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-book-medical"></i> Disease Information</h5>
+                        <p class="card-text">{{ info.description|title }}</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-shield-alt"></i> Precautions</h5>
+                        <div class="precautions">
+                            {% for precaution in info.precautions.split(',') %}
+                                <div class="precaution-item">{{ precaution.strip()|title }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-procedures"></i> Severity</h5>
+                        <div class="severity">
+                            {% for symptom, severity_data in info.symptom_severity.items() %}
+                                <div class="severity-item">
+                                    <span class="severity-label">{{ symptom.strip()|title }}</span>
+                                    <div class="severity-bar">
+                                        <div class="severity-level" style="width: {{ severity_data['percentage'] }}%; background-color: {{ severity_data['color'] }};"></div>
+                                    </div>
+                                    <span class="severity-number">{{ severity_data['severity'] }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <button class="btn btn-primary redo-btn"><i class="fas fa-redo-alt"></i> Redo Test</button>
+                    <button class="btn btn-secondary info-btn"><i class="fas fa-info-circle"></i> Check Info</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="script1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
