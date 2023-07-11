@@ -18,6 +18,9 @@ column_names = ['itching', 'skin_rash', 'nodal_skin_eruptions', 'dischromic_patc
 
 
 
+dictionary_of_symptoms = {symptom.replace("_", " ").capitalize(): symptom for symptom in pd.read_csv(cleaned_data_path).columns.tolist()}
+
+
 def clean_and_train_new_data():
     clean_data(raw_data_path, cleaned_data_path)
     train_and_test(cleaned_data_path, model_path)
