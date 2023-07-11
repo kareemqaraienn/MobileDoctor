@@ -1,27 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='MD.css') }}">
+    <title>Symptoms Search</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <a href="home.html" class="absolute top-0 left-0 m-4 bg-blue-500 text-white rounded-lg px-4 py-2">Home</a>
-    <form id="tags-form" class="w-1/3 bg-white rounded-lg shadow-xl p-6">
-        <h2 class="text-xl font-semibold mb-4 text-center text-blue-900">Please tell us what symptoms you are experiencing:</h2>
+    <form id="tags-form" class="w-1/4 bg-white rounded-lg shadow-xl p-6" method="POST">
+        <h2 class="text-xl font-semibold mb-4 text-center">Please tell us what symptoms you are experiencing:</h2>
         <div class="mb-4 flex">
             <span class="p-3 rounded-l bg-gray-100 border border-r-0 border-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
                 </svg>
             </span>
-            <input type="text" id="tag-input" list="tag-list" class="w-full p-3 rounded-r border border-gray-300 outline-none shadow-sm pl-12" placeholder="Select a symptom...">
+            <input type="text" id="tag-input" list="tag-list" class="w-full p-3 rounded-r border border-gray-300 outline-none shadow-sm pl-12" placeholder="Type and select a symptom...">
             <datalist id="tag-list">
                 <!-- Options will be populated dynamically -->
             </datalist>
         </div>
         <div id="tags-container" class="flex flex-wrap mb-4 p-2 border rounded border-gray-300 bg-white shadow-inner"></div>
         <button type="submit" class="w-full p-3 mb-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded shadow-md">Submit</button>
+        <button type="button" id="reset-button" class="w-full p-3 mb-4 bg-red-500 text-white rounded shadow-md">Reset</button>
+        <div class="filler-content bg-gray-200 p-6 rounded-lg shadow-xl">
+            <div class="max-w-xl mx-auto">
+              <div class="space-y-6">
+                <h2 class="text-2xl font-semibold mb-4 text-center">How to Add Symptoms:</h2>
+                <div class="space-y-2">
+                  <div class="flex items-start">
+                    <div class="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mt-1">1</div>
+                    <h3 class="text-lg font-semibold ml-4 mt-1">Type a symptom in the input field</h3>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                    <h3 class="text-lg font-semibold ml-4">Select the suggested symptom from the dropdown</h3>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mt-1">3</div>
+                    <h3 class="text-lg font-semibold ml-4 mt-1">The symptom will appear as a tag below</h3>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mt-1">4</div>
+                    <h3 class="text-lg font-semibold ml-4 mt-1">Repeat the process to add more symptoms</h3>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="mt-8">
+                <h2 class="text-2xl font-semibold mb-4 text-center">Why Add Multiple Symptoms:</h2>
+                <div class="space-y-4">
+                  <p class="pl-4 border-l-4 border-blue-500">Adding multiple symptoms helps in providing a more accurate prediction.</p>
+                  <p class="pl-4 border-l-4 border-blue-500">Include as many relevant symptoms as possible for better results.</p>
+                  <p class="pl-4 border-l-4 border-blue-500">Consider both primary and secondary symptoms you may be experiencing.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+
     </form>
-    <script src="script.js"></script>
+
+    <script>
+
+          document.getElementById("tags-form").addEventListener("submit", function (event) {
+
+    var tagsContainer = document.getElementById("tags-container");
+    if (tagsContainer.children.length === 0) {
+      event.preventDefault(); // Prevent form submission
+      alert("Please add at least one symptom."); // Show an error message to the user
+    }
+  });
+        document.addEventListener("DOMContentLoaded", function() {
+    // Convert the symptoms_dict to an array of entries
+    var symptoms = Object.entries({{ symptoms_dict|tojson|safe }});
+
+    var dataList = document.getElementById("tag-list");
+    symptoms.forEach(function(symptom) {
+        var option = document.createElement("option");
+        option.value = symptom[0];  // Display name
+        option.dataset.actualValue = symptom[1];  // Value to be sent
+        dataList.appendChild(option);
+    });
+});
+
+// Handling tag input and display
+document.getElementById("tag-input").addEventListener("input", function (e) {
+    var selectedTag = e.target.value;
+    var selectedOption = Array.from(document.getElementById("tag-list").options).find(option => option.value === selectedTag);
+    var tagsContainer = document.getElementById("tags-container");
+    var tagList = document.getElementById("tag-list");
+
+    if (selectedOption) {
+        var actualValue = selectedOption.dataset.actualValue;  // Get the value to be sent
+
+        // Create a hidden input element
+        var hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = "symptoms[]";  // This should be the name you want in the POST request
+        hiddenInput.value = actualValue;
+
+        if (selectedTag) {
+            var tag = document.createElement("div");
+            tag.className = "tag bg-blue-500 text-white rounded-full px-3 py-1 m-1 flex items-center shadow-md cursor-pointer transition-colors duration-200 ease-in-out hover:bg-blue-600";
+
+            var tagText = document.createElement("span");
+            tagText.innerText = selectedTag;
+
+            var removeButton = document.createElement("span");
+            removeButton.innerHTML = "&times;";
+            removeButton.className = "ml-2 font-bold";
+            removeButton.onclick = function () {
+                tagsContainer.removeChild(tag);
+                var option = document.createElement("option");
+                option.value = selectedTag;
+                option.dataset.actualValue = actualValue;
+                tagList.appendChild(option);
+            };
+
+            tag.appendChild(tagText);
+            tag.appendChild(removeButton);
+            tag.appendChild(hiddenInput); // Append hidden input to tag
+            tagsContainer.appendChild(tag);
+            e.target.value = "";
+
+            var options = tagList.options;
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value === selectedTag) {
+                    tagList.removeChild(options[i]);
+                    break;
+                }
+            }
+        }
+    }
+});
+
+// Reset button event listener
+document.getElementById("reset-button").addEventListener("click", function() {
+    var tagsContainer = document.getElementById("tags-container");
+    var tagList = document.getElementById("tag-list");
+
+    // Remove all tags from the container
+    while (tagsContainer.firstChild) {
+        tagsContainer.removeChild(tagsContainer.firstChild);
+    }
+
+    // Reset the options in the tag list
+    tagList.innerHTML = "";
+
+    // Convert the symptoms_dict to an array of entries
+    var symptoms = Object.entries({{ symptoms_dict|tojson|safe }});
+
+    symptoms.forEach(function(symptom) {
+        var option = document.createElement("option");
+        option.value = symptom[0];  // Display name
+        option.dataset.actualValue = symptom[1];  // Value to be sent
+        tagList.appendChild(option);
+    });
+});
+
+
+    </script>
 </body>
+
 </html>
