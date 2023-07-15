@@ -114,8 +114,8 @@
           .then(response => response.json())
           .then(data => {
             if (data.message === 'Login successful') {
-              // Redirect to the predict route
-              window.location.href = "/predict";
+              // Redirect to the dashboard route
+              window.location.href = "/dashboard";
             } else {
               // Display the error message
               displayErrorMessage(data.message);
