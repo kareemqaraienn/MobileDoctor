@@ -34,12 +34,13 @@ def get_disease_info(predicted_disease, symptoms):
     # Gather information
     description = disease_description.loc[disease_description['Disease'] == predicted_disease, 'Description'].values[0]
     precautions_row = disease_precaution.loc[disease_precaution['Disease'] == predicted_disease, ['Precaution_1', 'Precaution_2', 'Precaution_3', 'Precaution_4']]
-    precautions = ', '.join(precautions_row.values[0])
+    # print(precautions_row.values[0])
+    precautions_str = ', '.join(precautions_row.values[0].astype(str))
     severity = {symptom: int(symptom_severity.loc[symptom_severity['Symptom'] == symptom, 'weight'].values[0]) for symptom in symptoms}
     response = {
         'disease': predicted_disease,
         'description': description,
-        'precautions': precautions,
+        'precautions': precautions_str,
         'symptom_severity': severity
     }
     
