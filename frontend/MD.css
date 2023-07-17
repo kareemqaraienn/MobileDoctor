@@ -6,9 +6,6 @@ body {
     background-size: 250px 250px;
     background-position: center center;
     background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 100vh;
 }
 
@@ -16,8 +13,9 @@ body {
     text-align: center;
     width: 90%; /* Adjust the width value */
     max-width: 700px;
-    height: 850px; /* Adjust the height value */
+    height: 900px; /* Adjust the height value */
     margin: auto;
+    margin-top: 100px;
     padding: 20px;
     box-sizing: border-box;
 }
