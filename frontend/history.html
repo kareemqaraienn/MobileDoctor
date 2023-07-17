@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Your head content here -->
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            background-image: url("../frontend/ambulance-background.png");
+            background-repeat: repeat;
+            background-size: 250px 250px;
+            background-position: center center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 4rem;
+            position: relative;
+            color: #333;
+        }
+
+        .title:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #007bff, #007bff, #00468b);
+            background-size: 600% 600%;
+            animation: gradientAnimation 6s ease infinite;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .title span {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 0.5rem;
+            width: 80%;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+        }
+
+        .card .card-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card .section-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .disease-name {
+            font-size: 30px;
+            color: #00468b;
+            margin-bottom: 1rem;
+        }
+
+        .card .symptom-section {
+            margin-bottom: 1rem;
+        }
+
+        .card .symptom-section .symptom-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card .symptom-section .symptom-tags .symptom-tag {
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 16px;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card .date-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .card .date-section .date {
+            font-size: 20px;
+            color: #007bff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card .date-section .date i {
+            font-size: 24px;
+        }
+
+        .card-footer {
+            background: transparent;
+            border: none;
+        }
+
+        .card .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #dc3545;
+            cursor: pointer;
+        }
+
+        .card:hover .expand-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .expand-text {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            padding: 1.25rem;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+    
+</head>
+<body>
+    {% include 'navbar-signedin.html' %}
+    <div class="container py-5">
+        <h1 class="title">
+            <span>Your Disease Prediction History</span> &#x1F9A0;
+        </h1>
+        <div id="history" class="row justify-content-center">
+            {% for disease in history_data %}
+                <div class="col-md-6 mb-4">
+                    <div class="card d-flex flex-column justify-content-between shadow-sm" onclick="cardClick('{{ disease.predictionId }}')">
+                        <div class="delete-btn" data-id="{{ disease.predictionId }}"><i class="fas fa-trash-alt"></i></div>
+                        <div class="card-body">
+                            <div class="card-title"><span class="section-label">Disease Content:</span></div>
+                            <div class="disease-name">{{ disease.name }}</div>
+                            <div class="symptom-section">
+                                <p class="card-text"><strong>Your Symptoms:</strong></p>
+                                <div class="symptom-tags">
+                                    {% for symptom in disease.symptoms %}
+                                        <div class="symptom-tag">{{ symptom }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="date-section">
+                                <div class="date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span>{{ disease.created_on.strftime('%B %d, %Y') }}</span>
+                                    <span>{{ disease.created_on.strftime('%I:%M %p') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                            <div class="expand-text" onclick="cardClick('{{ disease.predictionId }}')">Expand</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Bootstrap JS and Popper JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        function cardClick(predictionId) {
+            console.log('Clicked card with predictionId:', predictionId);
+            window.location.href = '/predict/' + predictionId + '/results';
+        }
+
+        $('.delete-btn').click(function(event) {
+            event.stopPropagation();
+            let predictionId = $(this).data('id');
+            fetch('/api/predictions/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    predictionId: predictionId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                }
+            });
+
+        });
+
+        // Expand Section Functionality
+        $('.card').hover(
+            function() {
+                $(this).find('.expand-text').css('opacity', '1').css('transform', 'translateY(0)');
+            },
+            function() {
+                $(this).find('.expand-text').css('opacity', '0').css('transform', 'translateY(10px)');
+            }
+        );
+    </script>
+</body>
+</html>
