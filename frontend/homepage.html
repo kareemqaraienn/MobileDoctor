@@ -4,39 +4,21 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mobile Doctor - Homepage (CSI3140 Term Project)</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>#bgblue { background-color: #CFE4FF; } .nav-link:hover { text-decoration-line: underline; }</style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm p-3">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#"><h4>Mobile Doctor</h4></a>
-	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNavbar">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="collapseNavbar">
-	  <ul class="navbar-nav me-auto">
-	    <li class="nav-item"><a class="nav-link" href="#">Medical Conditions</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Healthy Living</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Find a Clinic</a></li>
-	  </ul>
-	  <div>
-	    <a class="btn btn-outline-info text-dark me-2" href="login.html">Login</a>
-	    <a class="btn btn-outline-info text-dark" href="register.html">Register</a>
-	  </div>
-        </div>
-      </div>
-    </nav>
+    {% include 'navbar-signedout.html' %}
     <div id="bgblue" class="container-fluid row d-flex align-items-center text-center p-5">
-      <img src="homepagepic.jpg" class="col" alt="Picture of a doctor." width="200" height="400"/>
+      <img src="../frontend/homepagepic.jpg" class="col" alt="Picture of a doctor." style="object-fit: cover; width: 100px; height: 700px;">
       <div class="col rounded bg-light p-3">
         <h1>Welcome to Mobile Doctor!</h1>
 	<p>Take control of your health with Mobile Doctor, the smart web app that predicts potential diseases
 	based on your symptoms, empowering you to make informed decisions and manage your health proactively.</p>
 	<div id="loginbtns">
-	  <a class="btn btn-outline-info btn-lg text-dark" href="login.html">Login</a>
-	  <a class="btn btn-outline-info btn-lg text-dark" href="register.html">Register</a>
+	  <a class="btn btn-outline-info btn-lg text-dark" href="login">Login</a>
+	  <a class="btn btn-outline-info btn-lg text-dark" href="register">Register</a>
 	</div>
       </div>
     </div>
@@ -72,8 +54,7 @@
         inputs allows for early detection of health issues. This early detection can lead to timely medical intervention and improved health outcomes.</p>
         <a class="btn btn-outline-info btn-lg text-dark" href="#">Read more</a>
       </div>
-      <img src="https://10web-site.ai/23/wp-content/uploads/sites/25/2023/07/abhishek-chadha-NOaRlXMJaJw-unsplash_BFtwCteI.webp" class="col rounded" alt="Engineer" width="300" height="400"/>
+      <img src="https://10web-site.ai/23/wp-content/uploads/sites/25/2023/07/abhishek-chadha-NOaRlXMJaJw-unsplash_BFtwCteI.webp" class="col rounded" alt="Engineer"style="object-fit: cover; width: 100px; height: 700px;">
     </div>
-    <div class="container-fluid bg-dark text-light p-5">Made By: Vidhi Chhura (300189941), Ivan, ...</div>
   </body>
 </html>

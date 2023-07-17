@@ -9,32 +9,14 @@
     <style> #bgblue { background-color: #CFE4FF; } .nav-link:hover { text-decoration-line: underline; } </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm p-3">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="dashboard.html"><h4>Mobile Doctor</h4></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapseNavbar">
-          <ul class="navbar-nav me-auto">
-	    <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Predict Condition</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Medical History</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Medical Conditions</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Healthy Living</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#">Find a Clinic</a></li>
-	  </ul>
-	  <a class="btn btn-outline-info text-dark" href="homepage.html">Logout</a>
-        </div>
-      </div>
-    </nav>
+    {% include 'navbar-signedin.html' %}
     <div id="bgblue" class="container-fluid row d-flex align-items-center text-center p-5">
-      <img src="homepagepic.jpg" class="col" alt="Picture of a doctor." width="200" height="400"/>
+      <img src="../frontend/homepagepic.jpg" class="col" alt="Picture of a doctor." style="object-fit: cover; width: 100px; height: 700px;">
       <div class="col rounded bg-light p-3">
         <h1>Welcome to Mobile Doctor!</h1>
 	<p>Take control of your health with Mobile Doctor, the smart web app that predicts potential diseases
 	based on your symptoms, empowering you to make informed decisions and manage your health proactively.</p>
-        <a class="btn btn-outline-info btn-lg text-dark" href="MD.html">Predict Your Condition</a>
+        <a class="btn btn-outline-info btn-lg text-dark" href="predict">Predict Your Condition</a>
       </div>
     </div>
     <div class="container-fluid p-5">
@@ -70,10 +52,9 @@
         medical intervention and improved health outcomes.</p>
         <a class="btn btn-outline-info btn-lg text-dark" href="#">Read more</a>
       </div>
-      <img src="https://10web-site.ai/23/wp-content/uploads/sites/25/2023/07/abhishek-chadha-NOaRlXMJaJw-unsplash_BFtwCteI.webp" class="col rounded" alt="Engineer" width="300" height="400"/>
+      <img src="https://10web-site.ai/23/wp-content/uploads/sites/25/2023/07/abhishek-chadha-NOaRlXMJaJw-unsplash_BFtwCteI.webp" class="col rounded" alt="Engineer"style="object-fit: cover; width: 100px; height: 700px;">
     </div>
     <div class="container-fluid bg-dark text-light p-5">
-      Made By: Vidhi Chhura (300189941), Ivan, ...
     </div>
   </body>
 </html>
