@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* center items vertically */
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+            box-sizing: border-box; /* Includes padding and border in height calculation */
+        }
+
+        .navbar a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .navbar a:after {
+            content: "";
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-right: 1px solid #333;
+            height: 70%;
+        }
+
+        .navbar a:last-child:after {
+            border-right: none;
+        }
+
+        .navbar a:before {
+            margin-right: 5px;
+        }
+
+        .navbar a.home:before {
+            content: "\1F3E0";
+        }
+
+        .navbar a.button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 0 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .navbar a.button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a class="home" href="/"></a>
+            <a href="#">Medical Conditions</a>
+            <a href="#">Healthy Living</a>
+            <a href="#">Find a Clinic</a>
+        </div>
+        <div class="navbar-right">
+            <a class="button" href="/login">Login</a>
+            <a class="button" href="/register">Register</a>
+        </div>
+    </nav>
+</body>
+</html>
