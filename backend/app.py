@@ -188,7 +188,6 @@ def predict():
 @app.route('/predict/<predictId>/results')
 @login_required
 def display_results(predictId):
-    print("fnff")
     prediction = db.session.query(Predictions).get(predictId)
     if prediction:
         info = get_prediction_info(prediction)
@@ -202,6 +201,8 @@ def display_results(predictId):
 @app.route('/history/<user_id>')
 @login_required
 def history(user_id):
+    if user_id != str(current_user.id):
+        return redirect(url_for('history', user_id=current_user.id))
     Session = sessionmaker(bind=db.engine)
     session = Session()
     PredictionSessions = Base.classes.PredictionSessions
