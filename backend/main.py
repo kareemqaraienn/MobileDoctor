@@ -25,6 +25,7 @@ def clean_and_train_new_data():
     clean_data(raw_data_path, cleaned_data_path)
     train_and_test(cleaned_data_path, model_path)
 
+
 def encode(symptoms):
     return pd.DataFrame([{col: 1 if col in symptoms else 0 for col in column_names}])
 
@@ -34,6 +35,8 @@ def get_disease_info(predicted_disease, symptoms):
     # Gather information
     description = disease_description.loc[disease_description['Disease'] == predicted_disease, 'Description'].values[0]
     precautions_row = disease_precaution.loc[disease_precaution['Disease'] == predicted_disease, ['Precaution_1', 'Precaution_2', 'Precaution_3', 'Precaution_4']]
+    # remove nan from precautions
+    precautions_row = precautions_row.dropna(axis=1)
     # print(precautions_row.values[0])
     precautions_str = ', '.join(precautions_row.values[0].astype(str))
     severity = {symptom: int(symptom_severity.loc[symptom_severity['Symptom'] == symptom, 'weight'].values[0]) for symptom in symptoms}
