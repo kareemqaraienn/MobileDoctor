@@ -15,7 +15,7 @@ import pytz
 
 
 
-app = Flask(__name__, static_folder='../frontend', template_folder='../frontend')
+app = Flask(__name__, static_folder='frontend', template_folder='frontend')
 
 
 app.config['SECRET_KEY'] = 'mysecretkey' # Set a secret key here
