@@ -192,7 +192,7 @@ def display_results(predictId):
     if prediction:
         info = get_prediction_info(prediction)
         print(int(prediction.probability))
-        return render_template('results.html', disease=prediction.predictedDisease, info=info, probability=prediction.probability/100, user=current_user)
+        return render_template('Results.html', disease=prediction.predictedDisease, info=info, probability=prediction.probability/100, user=current_user)
     else:
         # Handle invalid predictId
         return render_template('error.html', message='Invalid prediction ID')
