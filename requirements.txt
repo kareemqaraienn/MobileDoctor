@@ -2,7 +2,7 @@ flask
 flask_login==0.6.2
 sqlalchemy==2.0.17
 flask_sqlalchemy==3.0.5
-werkzeug.security==2.3.6
+werkzeug.security
 wtforms==3.0.1
 flask_wtf==1.1.1
 datetime
