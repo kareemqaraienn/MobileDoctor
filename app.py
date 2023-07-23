@@ -1,4 +1,4 @@
-from flask import Flask, flash, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_login import login_required, LoginManager, UserMixin, login_user, logout_user, current_user
 from sqlalchemy.ext.automap import automap_base
 from flask_sqlalchemy import SQLAlchemy
@@ -6,9 +6,6 @@ from main import predict_input, get_disease_info, dictionary_of_symptoms
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import sessionmaker
 import json
-from wtforms import SelectMultipleField
-from flask_wtf import FlaskForm
-from datetime import datetime
 import pytz
 
 
