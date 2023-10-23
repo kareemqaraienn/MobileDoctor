@@ -2,11 +2,16 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_login import login_required, LoginManager, UserMixin, login_user, logout_user, current_user
 from sqlalchemy.ext.automap import automap_base
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+load_dotenv()
 from main import predict_input, get_disease_info, dictionary_of_symptoms
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import sessionmaker
 import json
 import pytz
+from config import *
+
+
 
 
 
@@ -15,9 +20,10 @@ import pytz
 app = Flask(__name__, static_folder='frontend', template_folder='frontend')
 
 
-app.config['SECRET_KEY'] = 'mysecretkey' # Set a secret key here
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:admin123@mobiledoc.cy4cb9lerqy0.us-east-1.rds.amazonaws.com/main'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
+
 
 db = SQLAlchemy(app)
 
